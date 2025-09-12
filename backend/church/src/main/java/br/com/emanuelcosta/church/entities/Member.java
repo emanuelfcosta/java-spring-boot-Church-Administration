@@ -16,10 +16,11 @@ public class Member implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String status;
-    private String role;
+    private String status;// ACTIVE/disciplined, deceased, inactive
+    private String role; // (pastor, elder, deacon, evangelist, worker, youth leader, children's department leader,
+    // women's group leader, men's leader, prayer group leader, evangelism leader, worship leader
     private LocalDate baptismDate;
-    private String admission;
+    private String admission; // acclamation, baptism, letter, recommendation, transfer, others
     private String name;
     private String gender;
     private LocalDate birthdate;

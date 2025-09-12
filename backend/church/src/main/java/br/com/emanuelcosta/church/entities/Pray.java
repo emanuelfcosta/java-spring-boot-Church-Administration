@@ -17,8 +17,8 @@ public class Pray implements Serializable {
     private Long id;
     private String reason;
     private String description;
-    private String priority;
-    private String status;
+    private String priority; // urgent, high, medium, low
+    private String status; // done, not done
 
     public Pray() {
     }
