@@ -43,7 +43,7 @@ public class StudyService {
     public void delete(Long id){
         Study study = studyRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException(id));
-        
+
 
         studyRepository.delete(study);
     }
