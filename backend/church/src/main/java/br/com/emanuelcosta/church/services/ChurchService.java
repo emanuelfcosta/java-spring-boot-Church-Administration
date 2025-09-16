@@ -3,12 +3,14 @@ package br.com.emanuelcosta.church.services;
 import br.com.emanuelcosta.church.entities.Church;
 import br.com.emanuelcosta.church.entities.Member;
 import br.com.emanuelcosta.church.repositories.ChurchRepository;
-import br.com.emanuelcosta.church.services.exceptions.ResourceNotFoutndException;
+import br.com.emanuelcosta.church.services.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ChurchService {
     @Autowired
     private ChurchRepository churchRepository;
@@ -19,12 +21,12 @@ public class ChurchService {
 
     public Church findById(Long id){
         return churchRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoutndException(id));
+                .orElseThrow(()-> new ResourceNotFoundException(id));
     }
 
     public List<Member> findAllMembersByChurchId(Long churchId){
         Church church = churchRepository.findById(churchId)
-                .orElseThrow(()-> new ResourceNotFoutndException(churchId));
+                .orElseThrow(()-> new ResourceNotFoundException(churchId));
         return church.getMembers();
     }
 
@@ -36,7 +38,7 @@ public class ChurchService {
     @Transactional
     public void delete(Long id){
      Church church = churchRepository.findById(id)
-             .orElseThrow(()-> new ResourceNotFoutndException(id));
+             .orElseThrow(()-> new ResourceNotFoundException(id));
 
         // Unlink members before deleting
      church.getMembers().forEach(member -> member.setChurch(null));
@@ -47,7 +49,7 @@ public class ChurchService {
     @Transactional
     public Church update(Long id, Church church){
         Church existingChurch = churchRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoutndException(id));
+                .orElseThrow(()-> new ResourceNotFoundException(id));
 
         existingChurch.setName(church.getName());
         existingChurch.setResponsible(church.getResponsible());
