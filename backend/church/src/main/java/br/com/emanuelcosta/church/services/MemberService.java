@@ -35,20 +35,20 @@ public class MemberService {
         return obj.get();
     }
 
-    public List<Member> findByChurchId(Long churchId){
-
-        try{
-            Church churchEntity = churchRepository.findById(churchId).get();
-
-            List<Member> obj = churchEntity.getMembers();
-
-            return obj;
-
-
-        }catch(EntityNotFoundException e){
-            throw new ResourceNotFoundException(churchId);
-        }
-    }
+//    public List<Member> findByChurchId(Long churchId){
+//
+//        try{
+//            Church churchEntity = churchRepository.findById(churchId).get();
+//
+//            List<Member> obj = churchEntity.getMembers();
+//
+//            return obj;
+//
+//
+//        }catch(EntityNotFoundException e){
+//            throw new ResourceNotFoundException(churchId);
+//        }
+//    }
 
     // to create the member you need the church
     public Member createMember(Long churchId, Member member){
