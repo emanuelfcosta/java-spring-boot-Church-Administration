@@ -28,7 +28,7 @@ public class Member implements Serializable {
     private String state;
     private String occupation;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "church_id")
     private Church church;
 
