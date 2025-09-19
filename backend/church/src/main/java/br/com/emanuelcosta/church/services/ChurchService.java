@@ -58,6 +58,9 @@ public class ChurchService {
         existingChurch.setAddress(church.getAddress());
         existingChurch.setCity(church.getCity());
         existingChurch.setState(church.getState());
+        existingChurch.setFoundationdate(church.getFoundationdate());
+        existingChurch.setCnpj(church.getCnpj());
+        existingChurch.setPhone(church.getPhone());
 
         return churchRepository.save(existingChurch);
 

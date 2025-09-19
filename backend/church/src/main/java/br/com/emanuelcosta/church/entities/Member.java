@@ -1,5 +1,6 @@
 package br.com.emanuelcosta.church.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -28,8 +29,9 @@ public class Member implements Serializable {
     private String state;
     private String occupation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "church_id")
+
     private Church church;
 
     public Member() {

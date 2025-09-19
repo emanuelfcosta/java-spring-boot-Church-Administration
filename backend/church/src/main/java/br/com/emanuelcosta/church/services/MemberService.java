@@ -29,6 +29,8 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+
+
     public Member findById(Long id){
         Optional<Member> obj = memberRepository.findById(id);
 

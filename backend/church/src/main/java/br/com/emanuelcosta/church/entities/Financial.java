@@ -20,16 +20,18 @@ public class Financial implements Serializable {
     private BigDecimal amount;
     private LocalDate theDate;
     private String paymentMethod; // cash, credit card
+    private String description;
 
     public Financial() {
     }
 
-    public Financial(Long id, String type, BigDecimal amount, LocalDate theDate, String paymentMethod) {
+    public Financial(Long id, String type, BigDecimal amount, LocalDate theDate, String paymentMethod, String description) {
         this.id = id;
         this.type = type;
         this.amount = amount;
         this.theDate = theDate;
         this.paymentMethod = paymentMethod;
+        this.description = description;
     }
 
     public Long getId() {
@@ -70,16 +72,24 @@ public class Financial implements Serializable {
         this.paymentMethod = paymentMethod;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Financial financial = (Financial) o;
-        return Objects.equals(id, financial.id) && Objects.equals(type, financial.type) && Objects.equals(amount, financial.amount) && Objects.equals(theDate, financial.theDate) && Objects.equals(paymentMethod, financial.paymentMethod);
+        return Objects.equals(id, financial.id) && Objects.equals(type, financial.type) && Objects.equals(amount, financial.amount) && Objects.equals(theDate, financial.theDate) && Objects.equals(paymentMethod, financial.paymentMethod) && Objects.equals(description, financial.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, amount, theDate, paymentMethod);
+        return Objects.hash(id, type, amount, theDate, paymentMethod, description);
     }
 
     @Override
@@ -90,6 +100,7 @@ public class Financial implements Serializable {
                 ", amount=" + amount +
                 ", theDate=" + theDate +
                 ", paymentMethod='" + paymentMethod + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

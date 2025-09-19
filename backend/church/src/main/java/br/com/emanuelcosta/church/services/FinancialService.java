@@ -34,6 +34,7 @@ public class FinancialService {
         existingFinancial.setAmount(financial.getAmount());
         existingFinancial.setTheDate(financial.getTheDate());
         existingFinancial.setPaymentMethod(financial.getPaymentMethod());
+        existingFinancial.setDescription(financial.getDescription());
 
         return financialRepository.save(existingFinancial);
     }

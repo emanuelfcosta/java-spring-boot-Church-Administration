@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,15 +27,19 @@ public class Church implements Serializable  {
     private String address;
     private String city;
     private String state;
+    private LocalDate foundationdate;
+    private String cnpj;
+    private String phone;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "church")
+    @JsonIgnore
     private List<Member> members = new ArrayList<>();
 
     public Church() {
     }
 
-    public Church(Long id, String name, String responsible, String website, String type, String address, String city, String state) {
+    public Church(Long id, String name, String responsible, String website, String type, String address, String city, String state, LocalDate foundationdate, String cnpj, String phone) {
         this.id = id;
         this.name = name;
         this.responsible = responsible;
@@ -43,6 +48,9 @@ public class Church implements Serializable  {
         this.address = address;
         this.city = city;
         this.state = state;
+        this.foundationdate = foundationdate;
+        this.cnpj = cnpj;
+        this.phone = phone;
     }
 
     public Long getId() {
@@ -107,6 +115,30 @@ public class Church implements Serializable  {
         this.state = state;
     }
 
+    public LocalDate getFoundationdate() {
+        return foundationdate;
+    }
+
+    public void setFoundationdate(LocalDate foundationdate) {
+        this.foundationdate = foundationdate;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public List<Member> getMembers() {
         return members;
     }
@@ -125,12 +157,12 @@ public class Church implements Serializable  {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Church church = (Church) o;
-        return Objects.equals(id, church.id) && Objects.equals(name, church.name) && Objects.equals(responsible, church.responsible) && Objects.equals(website, church.website) && Objects.equals(type, church.type) && Objects.equals(address, church.address) && Objects.equals(city, church.city) && Objects.equals(state, church.state);
+        return Objects.equals(id, church.id) && Objects.equals(name, church.name) && Objects.equals(responsible, church.responsible) && Objects.equals(website, church.website) && Objects.equals(type, church.type) && Objects.equals(address, church.address) && Objects.equals(city, church.city) && Objects.equals(state, church.state) && Objects.equals(foundationdate, church.foundationdate) && Objects.equals(cnpj, church.cnpj) && Objects.equals(phone, church.phone) && Objects.equals(members, church.members);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, responsible, website, type, address, city, state);
+        return Objects.hash(id, name, responsible, website, type, address, city, state, foundationdate, cnpj, phone, members);
     }
 
     @Override
@@ -144,7 +176,10 @@ public class Church implements Serializable  {
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
-                ", membersCount='" + members.size() +
+                ", foundationdate=" + foundationdate +
+                ", cnpj='" + cnpj + '\'' +
+                ", phone='" + phone + '\'' +
+                ", memberCount=" + members.size() +
                 '}';
     }
 }
