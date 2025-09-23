@@ -15,9 +15,10 @@ function App() {
 
           {/*http://localhost:5173/churches */}
           <Route path="/churches" element={<ListChurchComponent />}></Route>
-
           {/* http://localhost:5173/add-church */}
           <Route path="/add-church" element={<ChurchComponent />}></Route>
+          {/* //localhost:5173/edit-church/1 */}
+         <Route path="/edit-church/:id" element={<ChurchComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>

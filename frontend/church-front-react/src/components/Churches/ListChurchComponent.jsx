@@ -26,6 +26,11 @@ const ListChurchComponent = () => {
     navigator("/add-church");
   }
 
+  function updateChurch(id) {
+    navigator(`/edit-church/${id}`);
+  }
+
+
   return (
     <div className="container">
       <h2 className="text-center">List of Churches</h2>
@@ -41,6 +46,7 @@ const ListChurchComponent = () => {
             <th>Responsible</th>
             <th>Address</th>
             <th>City</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -51,6 +57,16 @@ const ListChurchComponent = () => {
               <td>{church.responsible}</td>
               <td>{church.address}</td>
               <td>{church.city}</td>
+              <td>
+                  <button
+                 onClick={() => updateChurch(church.id)}
+                 className="btn btn-info"
+               >
+                 Update
+               </button>
+
+
+              </td>
             </tr>
           ))}
         </tbody>

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createChurch } from "../../services/ChurchService";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { createChurch, getChurchById, updateChurch } from "../../services/ChurchService";
 
 const ChurchComponent = () => {
 
@@ -14,6 +14,8 @@ const ChurchComponent = () => {
  const [city, setCity] = useState("");
  const [state, setState] = useState("");
  const [phone, setPhone] = useState("");
+
+   const { id } = useParams();
 
   const navigator = useNavigate();
 
@@ -29,6 +31,33 @@ const ChurchComponent = () => {
    state: "",
    phone: "",
  });
+
+  useEffect(() => {
+    if (id) {
+      getChurchById(id)
+        .then((response) => {
+          //console.log(response.data.name);
+          // setName(response.data.department.name);
+          setName(response.data.name);
+          setResponsible(response.data.responsible);
+          setWebsite(response.data.website);
+          setType(response.data.type);
+          // date to format yyyy-MM-dd
+              // setFoundationdate(response.data.foundationdate.split("T")[0]);
+
+           setFoundationdate(response.data.foundationdate);
+     
+          setCnpj(response.data.cnpj);
+          setAddress(response.data.address);
+          setCity(response.data.city);
+          setState(response.data.state);
+          setPhone(response.data.phone);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [id]);
 
    function validateForm() {
     let valid = true;
@@ -114,29 +143,26 @@ const ChurchComponent = () => {
 
 
 
-  function saveChurch(e) {
-   e.preventDefault();
+  function saveorUpdateChurch(e) {
+    e.preventDefault();
+    if (validateForm()) {
+      const church = {
+        name,
+        responsible,
+        website,
+        type,
+        foundationdate,
+        cnpj,
+        address,
+        city,
+        state,
+        phone,
+      };
 
-   if (validateForm()) {
+      //  console.log(church);
 
-
-   const church = {
-     name,
-     responsible,
-     website,
-     type,
-     foundationdate,
-     cnpj,
-     address,
-     city,
-     state,
-     phone,
-   };
-
-
-  // console.log(church);
-
-   createChurch(church)
+      if (id) {
+        updateChurch(id, church)
           .then((response) => {
             console.log(response.data);
             navigator("/churches");
@@ -144,8 +170,26 @@ const ChurchComponent = () => {
           .catch((error) => {
             console.error(error);
           });
-        }
- }
+      } else {
+        createChurch(church)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/churches");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    }
+  }
+
+ function pageTitle() {
+    if (id) {
+      return <h2 className="text-center">Update Church</h2>;
+    } else {
+      return <h2 className="text-center">Add Church</h2>;
+    }
+  }
 
 
 
@@ -154,7 +198,7 @@ const ChurchComponent = () => {
      <br></br>
      <div className="row">
        <div className="card col-md-10 offset-md-1 offset-md-1">
-         <h2 className="text-center">Add Church</h2>
+         {pageTitle()}
          <div className="card-body">
     <form>
               <div className="form-group mb-2">
@@ -336,7 +380,7 @@ const ChurchComponent = () => {
                 )}
               </div>
 
-              <button className="btn btn-success" onClick={saveChurch}>
+              <button className="btn btn-success" onClick={saveorUpdateChurch}>
                 Save
               </button>
             </form>
