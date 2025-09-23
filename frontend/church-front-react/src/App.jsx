@@ -3,6 +3,7 @@ import ListChurchComponent from "./components/Churches/ListChurchComponent";
 import HeaderComponent from "./components/HeaderComponent";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import IndexComponent from "./components/IndexComponent";
+import ChurchComponent from "./components/Churches/ChurchComponent";
 function App() {
   return (
     <>
@@ -14,6 +15,9 @@ function App() {
 
           {/*http://localhost:5173/churches */}
           <Route path="/churches" element={<ListChurchComponent />}></Route>
+
+          {/* http://localhost:5173/add-church */}
+          <Route path="/add-church" element={<ChurchComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>

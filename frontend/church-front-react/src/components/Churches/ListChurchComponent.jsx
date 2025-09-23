@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getAllChurches } from "../../services/ChurchService";
+import { useNavigate } from "react-router-dom";
 
 const ListChurchComponent = () => {
   const [churches, setChurches] = useState([]);
+
+  const navigator = useNavigate([]);
 
   function listOfChurches() {
     getAllChurches()
@@ -19,9 +22,17 @@ const ListChurchComponent = () => {
     listOfChurches();
   }, []);
 
+  function addNewChurch(){
+    navigator("/add-church");
+  }
+
   return (
     <div className="container">
       <h2 className="text-center">List of Churches</h2>
+      <button className="btn btn-success" onClick={addNewChurch}>
+      Add Church
+    </button>
+
       <table className="table table-striped">
         <thead>
           <tr>
@@ -34,8 +45,8 @@ const ListChurchComponent = () => {
         </thead>
         <tbody>
           {churches.map((church) => (
-            <tr key={church._id}>
-              <td>{church._id}</td>
+            <tr key={church.id}>
+              <td>{church.id}</td>
               <td>{church.type}</td>
               <td>{church.responsible}</td>
               <td>{church.address}</td>
