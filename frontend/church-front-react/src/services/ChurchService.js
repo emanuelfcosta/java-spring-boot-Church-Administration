@@ -11,3 +11,6 @@ export const getChurchById = (churchId) =>
 
 export const updateChurch = (churchId, church) =>
  axios.put(REST_API_BASE_URL + "/" + churchId, church);
+
+export const deleteChurch = (churchId) =>
+ axios.delete(REST_API_BASE_URL + "/" + churchId);

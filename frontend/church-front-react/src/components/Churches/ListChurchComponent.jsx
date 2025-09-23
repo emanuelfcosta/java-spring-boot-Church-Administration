@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllChurches } from "../../services/ChurchService";
+import { deleteChurch, getAllChurches } from "../../services/ChurchService";
 import { useNavigate } from "react-router-dom";
 
 const ListChurchComponent = () => {
@@ -28,6 +28,17 @@ const ListChurchComponent = () => {
 
   function updateChurch(id) {
     navigator(`/edit-church/${id}`);
+  }
+
+  function removeChurch(id) {
+    deleteChurch(id)
+      .then((response) => {
+        console.log(response.data);
+        listOfChurches();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
 
@@ -63,6 +74,14 @@ const ListChurchComponent = () => {
                  className="btn btn-info"
                >
                  Update
+               </button>
+
+                <button
+                 onClick={() => removeChurch(church.id)}
+                 className="btn btn-danger"
+                 style={{ marginLeft: "10px" }}
+               >
+                 Delete
                </button>
 
 
