@@ -4,6 +4,7 @@ import HeaderComponent from "./components/HeaderComponent";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import IndexComponent from "./components/IndexComponent";
 import ChurchComponent from "./components/Churches/ChurchComponent";
+import ListMemberComponent from "./components/Members/ListMemberComponent";
 function App() {
   return (
     <>
@@ -18,7 +19,10 @@ function App() {
           {/* http://localhost:5173/add-church */}
           <Route path="/add-church" element={<ChurchComponent />}></Route>
           {/* //localhost:5173/edit-church/1 */}
-         <Route path="/edit-church/:id" element={<ChurchComponent />}></Route>
+          <Route path="/edit-church/:id" element={<ChurchComponent />}></Route>
+
+          {/*http://localhost:5173/members */}
+          <Route path="/members" element={<ListMemberComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>
