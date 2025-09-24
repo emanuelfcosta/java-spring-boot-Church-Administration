@@ -15,3 +15,6 @@ export const updateMember = (memberId, churchId, member) =>
     REST_API_BASE_URL + "/" + memberId + "/churches/" + churchId,
     member
   );
+
+export const deleteMember = (memberId) =>
+  axios.delete(REST_API_BASE_URL + "/" + memberId);
