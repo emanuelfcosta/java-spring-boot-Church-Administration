@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getAllMembers } from "../../services/MemberService";
+import { useNavigate } from "react-router-dom";
 
 const ListMemberComponent = () => {
   const [members, setMembers] = useState([]);
+
+  const navigator = useNavigate();
 
   useEffect(() => {
     listOfMembers();
@@ -19,9 +22,16 @@ const ListMemberComponent = () => {
       });
   }
 
+  function addNewMember() {
+    navigator("/add-member");
+  }
+
   return (
     <div className="container">
       <h2 className="text-center">List of Members</h2>
+      <button className="btn btn-success" onClick={addNewMember}>
+        Add Member
+      </button>
 
       <table className="table table-striped">
         <thead>
