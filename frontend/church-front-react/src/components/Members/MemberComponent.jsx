@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 
 import { getAllChurches } from "../../services/ChurchService";
-import { useNavigate } from "react-router-dom";
-import { createMember } from "../../services/MemberService";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  createMember,
+  getMemberById,
+  updateMember,
+} from "../../services/MemberService";
 
 const MemberComponent = () => {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
   const [role, setRole] = useState("");
-  const [baptismdate, setBaptismdate] = useState("");
-  const [addmission, setAddmission] = useState("");
+  const [baptismDate, setBaptismDate] = useState("");
+  const [admission, setAdmission] = useState("");
   const [gender, setGender] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [address, setAddress] = useState("");
@@ -17,6 +21,8 @@ const MemberComponent = () => {
   const [occupation, setOccupation] = useState("");
 
   const navigator = useNavigate();
+
+  const { id } = useParams();
 
   // for churches
 
@@ -35,12 +41,39 @@ const MemberComponent = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (id) {
+      getMemberById(id)
+        .then((response) => {
+          console.log(response.data);
+          setChurch(response.data.church.id);
+          //setChurch(response.data.church?.id?.toString() || "");
+          setName(response.data.name);
+          setStatus(response.data.status);
+          setRole(response.data.role);
+          //  yyyy-MM-dd format
+          setBaptismDate(response.data.baptismDate);
+          setAdmission(response.data.admission);
+          setGender(response.data.gender);
+          //  yyyy-MM-dd format
+          setBirthdate(response.data.birthdate);
+
+          setAddress(response.data.address);
+          setState(response.data.state);
+          setOccupation(response.data.occupation);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [id]);
+
   const [errors, setErrors] = useState({
     church: "",
     status: "",
     role: "",
-    baptismdate: "",
-    addmission: "",
+    baptismDate: "",
+    admission: "",
     name: "",
     gender: "",
     birthdate: "",
@@ -75,17 +108,17 @@ const MemberComponent = () => {
       valid = false;
     }
 
-    if (baptismdate.trim()) {
-      errorsCopy.baptismdate = "";
+    if (baptismDate.trim()) {
+      errorsCopy.baptismDate = "";
     } else {
-      errorsCopy.baptismdate = "Baptism date is required";
+      errorsCopy.baptismDate = "Baptism date is required";
       valid = false;
     }
 
-    if (addmission) {
-      errorsCopy.addmission = "";
+    if (admission) {
+      errorsCopy.admission = "";
     } else {
-      errorsCopy.addmission = "addmission is required";
+      errorsCopy.admission = "admission is required";
       valid = false;
     }
 
@@ -138,7 +171,7 @@ const MemberComponent = () => {
     return valid;
   }
 
-  function saveMember(e) {
+  function saveOrUpdateMember(e) {
     e.preventDefault();
 
     if (validateForm()) {
@@ -146,8 +179,8 @@ const MemberComponent = () => {
         //  church,
         status,
         role,
-        baptismdate,
-        addmission,
+        baptismDate,
+        admission,
         name,
         gender,
         birthdate,
@@ -156,16 +189,35 @@ const MemberComponent = () => {
         occupation,
       };
 
-      //console.log(member);
+      //   console.log(member);
 
-      createMember(church, member)
-        .then((response) => {
-          console.log(response.data);
-          navigator("/members");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (id) {
+        updateMember(id, church, member)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/members");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        createMember(church, member)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/members");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
+  }
+
+  function pageTitle() {
+    if (id) {
+      return <h2 className="text-center">Update Member</h2>;
+    } else {
+      return <h2 className="text-center">Add Member</h2>;
     }
   }
 
@@ -174,6 +226,7 @@ const MemberComponent = () => {
       <br /> <br />
       <div className="row">
         <div className="card col-md-10 offset-md-1 offset-md-1">
+          {pageTitle()}
           <div className="card-body">
             <form>
               <div className="form-group mb-2">
@@ -245,10 +298,10 @@ const MemberComponent = () => {
               <div className="form-group mb-2">
                 <label className="form-label">Admision:</label>
                 <select
-                  value={addmission}
-                  onChange={(e) => setAddmission(e.target.value)}
+                  value={admission}
+                  onChange={(e) => setAdmission(e.target.value)}
                   className={`form-control ${
-                    errors.addmission ? "is-invalid" : ""
+                    errors.admission ? "is-invalid" : ""
                   }`}
                 >
                   <option value="Acclamation">Acclamation</option>
@@ -258,8 +311,8 @@ const MemberComponent = () => {
                   <option value="Transfer">Transfer</option>
                   <option value="others">Others</option>
                 </select>
-                {errors.addmission && (
-                  <div className="invalid-feedback">{errors.addmission} </div>
+                {errors.admission && (
+                  <div className="invalid-feedback">{errors.admission} </div>
                 )}
               </div>
 
@@ -267,15 +320,15 @@ const MemberComponent = () => {
                 <label className="form-label">Date of Baptism:</label>
                 <input
                   type="date"
-                  name="baptismdate"
-                  value={baptismdate}
-                  onChange={(e) => setBaptismdate(e.target.value)}
+                  name="baptismDate"
+                  value={baptismDate}
+                  onChange={(e) => setBaptismDate(e.target.value)}
                   className={`form-control ${
-                    errors.baptismdate ? "is-invalid" : ""
+                    errors.baptismDate ? "is-invalid" : ""
                   }`}
                 ></input>
-                {errors.baptismdate && (
-                  <div className="invalid-feedback">{errors.baptismdate} </div>
+                {errors.baptismDate && (
+                  <div className="invalid-feedback">{errors.baptismDate} </div>
                 )}
               </div>
               <div className="form-group mb-2">
@@ -304,7 +357,7 @@ const MemberComponent = () => {
                   <option value="">Select gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
-                  <option value="Other">Outro</option>
+                  <option value="Other">Other</option>
                 </select>
                 {errors.gender && (
                   <div className="invalid-feedback">{errors.gender}</div>
@@ -395,7 +448,7 @@ const MemberComponent = () => {
                 )}
               </div>
 
-              <button className="btn btn-success" onClick={saveMember}>
+              <button className="btn btn-success" onClick={saveOrUpdateMember}>
                 Save
               </button>
             </form>

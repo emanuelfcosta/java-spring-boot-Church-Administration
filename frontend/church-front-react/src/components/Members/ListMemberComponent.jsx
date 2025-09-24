@@ -26,6 +26,10 @@ const ListMemberComponent = () => {
     navigator("/add-member");
   }
 
+  function updateMember(id) {
+    navigator(`/edit-member/${id}`);
+  }
+
   return (
     <div className="container">
       <h2 className="text-center">List of Members</h2>
@@ -50,7 +54,14 @@ const ListMemberComponent = () => {
               <td>{member.name}</td>
               <td>{member.occupation}</td>
               <td>{member.church.name}</td>
-              <td></td>
+              <td>
+                <button
+                  onClick={() => updateMember(member.id)}
+                  className="btn btn-info"
+                >
+                  Update
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
