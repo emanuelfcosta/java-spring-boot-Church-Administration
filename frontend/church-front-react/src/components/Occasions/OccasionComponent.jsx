@@ -1,6 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createOccasion } from "../../services/OccasionService";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  createOccasion,
+  getOccasionById,
+  updateOccasion,
+} from "../../services/OccasionService";
 
 const OccasionComponent = () => {
   const [start, setStart] = useState("");
@@ -10,12 +14,35 @@ const OccasionComponent = () => {
 
   const navigator = useNavigate();
 
+  const { id } = useParams();
+
   const [errors, setErrors] = useState({
     start: "",
     end: "",
     name: "",
     description: "",
   });
+
+  useEffect(() => {
+    if (id) {
+      getOccasionById(id)
+        .then((response) => {
+          console.log(response.data);
+
+          // Convert the date to yyyy-MM-dd format
+          // setStart(response.data.start.split("T")[0]);
+          setStart(response.data.start);
+          // Convert the date to yyyy-MM-dd format
+          //setEnd(response.data.end.split("T")[0]);
+          setEnd(response.data.end);
+          setName(response.data.name);
+          setDescription(response.data.description);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [id]);
 
   function validateForm() {
     let valid = true;
@@ -57,7 +84,7 @@ const OccasionComponent = () => {
     return valid;
   } //validateForm
 
-  function saveOccasion(e) {
+  function saveOrUpdateOccasion(e) {
     e.preventDefault();
 
     if (validateForm()) {
@@ -70,14 +97,33 @@ const OccasionComponent = () => {
 
       // console.log(occasion);
 
-      createOccasion(occasion)
-        .then((response) => {
-          console.log(response.data);
-          navigator("/occasions");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (id) {
+        updateOccasion(id, occasion)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/occasions");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        createOccasion(occasion)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/occasions");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
+  }
+
+  function pageTitle() {
+    if (id) {
+      return <h2 className="text-center">Update Event</h2>;
+    } else {
+      return <h2 className="text-center">Add Event</h2>;
     }
   }
 
@@ -86,6 +132,7 @@ const OccasionComponent = () => {
       <br /> <br />
       <div className="row">
         <div className="card col-md-10 offset-md-1 offset-md-1">
+          {pageTitle()}
           <div className="card-body">
             <form>
               <div className="form-group mb-2">
@@ -143,7 +190,10 @@ const OccasionComponent = () => {
                 )}
               </div>
 
-              <button className="btn btn-success" onClick={saveOccasion}>
+              <button
+                className="btn btn-success"
+                onClick={saveOrUpdateOccasion}
+              >
                 {" "}
                 Save{" "}
               </button>

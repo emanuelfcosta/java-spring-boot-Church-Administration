@@ -27,6 +27,10 @@ const ListOccasionComponent = () => {
     navigator("/add-occasion");
   }
 
+  function updateOccasion(id) {
+    navigator(`/edit-occasion/${id}`);
+  }
+
   return (
     <div className="container">
       <h2 className="text-center">List of Events</h2>
@@ -52,7 +56,14 @@ const ListOccasionComponent = () => {
               <td>{occasion.start}</td>
               <td>{occasion.end}</td>
               <td>{occasion.name}</td>
-              <td></td>
+              <td>
+                <button
+                  onClick={() => updateOccasion(occasion.id)}
+                  className="btn btn-info"
+                >
+                  Update
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
