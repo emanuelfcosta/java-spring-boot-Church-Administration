@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllStudy } from "../../services/StudyService";
+import { deleteStudy, getAllStudy } from "../../services/StudyService";
 import { useNavigate } from "react-router-dom";
 
 const ListStudyComponent = () => {
@@ -31,9 +31,20 @@ const ListStudyComponent = () => {
   }
 
   // shows the date in  dd/mm/yyyy format
-  function formatDate(date) {
-    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
-    return new Date(date).toLocaleDateString("pt-BR", options);
+  //   function formatDate(date) {
+  //     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+  //     return new Date(date).toLocaleDateString("pt-BR", options);
+  //   }
+
+  function removeStudy(id) {
+    deleteStudy(id)
+      .then((response) => {
+        console.log(response.data);
+        listOfStudy();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
@@ -66,6 +77,13 @@ const ListStudyComponent = () => {
                   className="btn btn-info"
                 >
                   Update
+                </button>
+                <button
+                  onClick={() => removeStudy(theStudy.id)}
+                  className="btn btn-danger"
+                  style={{ marginLeft: "10px" }}
+                >
+                  Delete
                 </button>
               </td>
             </tr>
