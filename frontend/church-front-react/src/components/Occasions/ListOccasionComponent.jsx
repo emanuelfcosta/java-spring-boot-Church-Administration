@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import { getAllOccasions } from "../../services/OccasionService";
+import {
+  deleteOccasion,
+  getAllOccasions,
+} from "../../services/OccasionService";
 import { useNavigate } from "react-router-dom";
 
 const ListOccasionComponent = () => {
@@ -29,6 +32,17 @@ const ListOccasionComponent = () => {
 
   function updateOccasion(id) {
     navigator(`/edit-occasion/${id}`);
+  }
+
+  function removeOccasion(id) {
+    deleteOccasion(id)
+      .then((response) => {
+        console.log(response.data);
+        listOfOccasions();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
@@ -62,6 +76,14 @@ const ListOccasionComponent = () => {
                   className="btn btn-info"
                 >
                   Update
+                </button>
+
+                <button
+                  onClick={() => removeOccasion(occasion.id)}
+                  className="btn btn-danger"
+                  style={{ marginLeft: "10px" }}
+                >
+                  Delete
                 </button>
               </td>
             </tr>
