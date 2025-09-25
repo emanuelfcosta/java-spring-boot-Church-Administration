@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getAllStudy } from "../../services/StudyService";
+import { useNavigate } from "react-router-dom";
 
 const ListStudyComponent = () => {
   const [study, setStudy] = useState([]);
+
+  const navigator = useNavigate();
 
   useEffect(() => {
     listOfStudy();
@@ -19,6 +22,10 @@ const ListStudyComponent = () => {
       });
   }
 
+  function addNewStudy() {
+    navigator("/add-study");
+  }
+
   // shows the date in  dd/mm/yyyy format
   function formatDate(date) {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -28,6 +35,10 @@ const ListStudyComponent = () => {
   return (
     <div className="container">
       <h2 className="text-center">List of Studies</h2>
+      <button className="btn btn-success" onClick={addNewStudy}>
+        Add Study
+      </button>
+
       <table className="table table-striped ">
         <thead>
           <tr>

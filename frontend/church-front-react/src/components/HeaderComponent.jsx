@@ -28,14 +28,16 @@ const HeaderComponent = () => {
               >
                 Church
               </a>
-            </div>
-            <div className="navbar-nav">
               <a
                 className="nav-link active"
                 aria-current="page"
                 href="/members"
               >
                 Member
+              </a>
+
+              <a className="nav-link active" aria-current="page" href="/study">
+                Studies
               </a>
             </div>
           </div>
