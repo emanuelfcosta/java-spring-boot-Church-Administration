@@ -17,26 +17,68 @@ const OccasionComponent = () => {
     description: "",
   });
 
+  function validateForm() {
+    let valid = true;
+
+    const errorsCopy = { ...errors };
+
+    if (start) {
+      errorsCopy.start = "";
+    } else {
+      errorsCopy.start = "Start is required";
+      valid = false;
+    }
+
+    if (end.trim()) {
+      errorsCopy.end = "";
+    } else {
+      errorsCopy.end = "End is required";
+      valid = false;
+    }
+
+    if (name.trim()) {
+      errorsCopy.name = "";
+    } else {
+      errorsCopy.name = "Name is required";
+      valid = false;
+    }
+
+    if (description.trim()) {
+      errorsCopy.description = "";
+    } else {
+      errorsCopy.description = "Description is required";
+      valid = false;
+    }
+
+    setErrors(errorsCopy);
+
+    console.log(errorsCopy);
+
+    return valid;
+  } //validateForm
+
   function saveOccasion(e) {
     e.preventDefault();
 
-    const occasion = {
-      start,
-      end,
-      name,
-      description,
-    };
+    if (validateForm()) {
+      const occasion = {
+        start,
+        end,
+        name,
+        description,
+      };
 
-    // console.log(occasion);
+      // console.log(occasion);
 
-    createOccasion(occasion)
-      .then((response) => {
-        console.log(response.data);
-        navigator("/occasions");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      createOccasion(occasion)
+        .then((response) => {
+          console.log(response.data);
+          navigator("/occasions");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   return (
