@@ -26,6 +26,10 @@ const ListStudyComponent = () => {
     navigator("/add-study");
   }
 
+  function updateStudy(id) {
+    navigator(`/edit-study/${id}`);
+  }
+
   // shows the date in  dd/mm/yyyy format
   function formatDate(date) {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -56,7 +60,14 @@ const ListStudyComponent = () => {
               <td>{theStudy.theDate}</td>
               <td>{theStudy.subject}</td>
               <td>{theStudy.description}</td>
-              <td></td>
+              <td>
+                <button
+                  onClick={() => updateStudy(theStudy.id)}
+                  className="btn btn-info"
+                >
+                  Update
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

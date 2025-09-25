@@ -28,11 +28,13 @@ function App() {
           <Route path="/add-member" element={<MemberComponent />}></Route>
           {/* //localhost:5173/edit-member/1 */}
           <Route path="/edit-member/:id" element={<MemberComponent />}></Route>
+
           {/*http://localhost:5173/study */}
           <Route path="/study" element={<ListStudyComponent />}></Route>
-          99- Alterar App.jsx adicionar:
           {/* http://localhost:5173/add-study */}
           <Route path="/add-study" element={<StudyComponent />}></Route>
+          {/* //localhost:5173/edit-study/1 */}
+          <Route path="/edit-study/:id" element={<StudyComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>
