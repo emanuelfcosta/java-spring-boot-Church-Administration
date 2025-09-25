@@ -37,7 +37,15 @@ const HeaderComponent = () => {
               </a>
 
               <a className="nav-link active" aria-current="page" href="/study">
-                Studies
+                Study
+              </a>
+
+              <a
+                className="nav-link active"
+                aria-current="page"
+                href="/occasions"
+              >
+                Events
               </a>
             </div>
           </div>
