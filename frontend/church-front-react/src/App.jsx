@@ -63,6 +63,11 @@ function App() {
           <Route path="/financial" element={<ListFinancialComponent />}></Route>
           {/* http://localhost:5173/add-financial */}
           <Route path="/add-financial" element={<FinancialComponent />}></Route>
+          {/* //localhost:5173/edit-financial/1 */}
+          <Route
+            path="/edit-financial/:id"
+            element={<FinancialComponent />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>
