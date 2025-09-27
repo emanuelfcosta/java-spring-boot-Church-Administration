@@ -12,3 +12,6 @@ export const getFinancialById = (financialId) =>
 
 export const updateFinancial = (financialId, financial) =>
   axios.put(REST_API_BASE_URL + "/" + financialId, financial);
+
+export const deleteFinancial = (financialId) =>
+  axios.delete(REST_API_BASE_URL + "/" + financialId);
