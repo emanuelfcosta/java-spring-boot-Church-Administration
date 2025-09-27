@@ -26,6 +26,10 @@ const ListPrayComponent = () => {
     navigator("/add-pray");
   }
 
+  function updatePray(id) {
+    navigator(`/edit-pray/${id}`);
+  }
+
   return (
     <div className="container">
       <h2 className="text-center">List of Prayers</h2>
@@ -50,7 +54,14 @@ const ListPrayComponent = () => {
               <td>{pray.reason}</td>
               <td>{pray.priority}</td>
               <td>{pray.status}</td>
-              <td></td>
+              <td>
+                <button
+                  onClick={() => updatePray(pray.id)}
+                  className="btn btn-info"
+                >
+                  Update
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
