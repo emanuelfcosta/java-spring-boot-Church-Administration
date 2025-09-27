@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getAllPrayers } from "../../services/PrayService";
+import { useNavigate } from "react-router-dom";
 
 const ListPrayComponent = () => {
   const [prayers, setPrayers] = useState([]);
+
+  const navigator = useNavigate();
 
   useEffect(() => {
     listOfPrayers();
@@ -19,9 +22,17 @@ const ListPrayComponent = () => {
       });
   }
 
+  function addNewPray() {
+    navigator("/add-pray");
+  }
+
   return (
     <div className="container">
       <h2 className="text-center">List of Prayers</h2>
+      <button className="btn btn-success" onClick={addNewPray}>
+        Add Pray
+      </button>
+
       <table className="table table-striped ">
         <thead>
           <tr>
