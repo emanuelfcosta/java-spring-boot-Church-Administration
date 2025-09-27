@@ -14,6 +14,13 @@ import ListPrayComponent from "./components/Prayers/ListPrayComponent";
 import PrayComponent from "./components/Prayers/PrayComponent";
 import ListFinancialComponent from "./components/Financial/ListFinancialComponent";
 import FinancialComponent from "./components/Financial/FinancialComponent";
+import ListReportComponent from "./components/Reports/ListReportComponent";
+import ChurchesReport from "./components/Reports/ChurchesReport";
+import MembersReport from "./components/Reports/MembersReport";
+import StudiesReport from "./components/Reports/StudiesReport";
+import OccasionsReport from "./components/Reports/OccasionsReport";
+import PrayersReport from "./components/Reports/PrayersReport";
+import FinancialReport from "./components/Reports/FinancialReport";
 function App() {
   return (
     <>
@@ -67,6 +74,45 @@ function App() {
           <Route
             path="/edit-financial/:id"
             element={<FinancialComponent />}
+          ></Route>
+
+          {/*http://localhost:5173/reports */}
+          <Route path="/reports" element={<ListReportComponent />}></Route>
+
+          {/*http://localhost:5173/reports/churchesreport */}
+          <Route
+            path="/reports/churchesreport"
+            element={<ChurchesReport />}
+          ></Route>
+          {/*http://localhost:5173/reports/membersreport */}
+          <Route
+            path="/reports/membersreport"
+            element={<MembersReport />}
+          ></Route>
+          {/*http://localhost:5173/reports/studiesreport */}
+          <Route
+            path="/reports/studiesreport"
+            element={<StudiesReport />}
+          ></Route>
+          {/*http://localhost:5173/reports/occasionsreport */}
+          <Route
+            path="/reports/occasionsreport"
+            element={<OccasionsReport />}
+          ></Route>
+          {/*http://localhost:5173/reports/prayersreport */}
+          <Route
+            path="/reports/prayersreport"
+            element={<PrayersReport />}
+          ></Route>
+          {/*http://localhost:5173/reports/prayersreport */}
+          <Route
+            path="/reports/prayersreport"
+            element={<PrayersReport />}
+          ></Route>
+          {/*http://localhost:5173/reports/financialreport */}
+          <Route
+            path="/reports/financialreport"
+            element={<FinancialReport />}
           ></Route>
         </Routes>
       </BrowserRouter>

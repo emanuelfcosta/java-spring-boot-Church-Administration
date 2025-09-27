@@ -63,6 +63,14 @@ const HeaderComponent = () => {
               >
                 Financial
               </a>
+
+              <a
+                className="nav-link active"
+                aria-current="page"
+                href="/reports"
+              >
+                Reports
+              </a>
             </div>
           </div>
         </div>
