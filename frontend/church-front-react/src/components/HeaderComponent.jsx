@@ -47,6 +47,14 @@ const HeaderComponent = () => {
               >
                 Events
               </a>
+
+              <a
+                className="nav-link active"
+                aria-current="page"
+                href="/prayers"
+              >
+                Prayers
+              </a>
             </div>
           </div>
         </div>
